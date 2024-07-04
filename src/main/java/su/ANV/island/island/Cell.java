@@ -10,9 +10,7 @@ import su.ANV.island.exception.TooMatchCreatureException;
 import su.ANV.island.exception.UnknownCreatureException;
 import su.ANV.island.io.TextOut;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -44,7 +42,21 @@ public class Cell {
         }
     }
 
-    public int getNumberOfCreatures(String creatureName) {
+    public Set<String> getCreaturesSet() {
+        return creatures.keySet();
+    }
+
+    public List<Creature> getCreatureList(String creatureName) throws UnknownCreatureException, NoCreatureException {
+        if (containCreature(creatureName)) {
+            return creatures.get(creatureName);
+        }
+        throw new NoCreatureException("No" + creatureName + "in cell");
+    }
+
+    public int getNumberOfCreatures(String creatureName) throws UnknownCreatureException {
+        if (!creatures.containsKey(creatureName)) {
+            throw new UnknownCreatureException("Unknown creature" + creatureName);
+        }
         return creatures.get(creatureName).size();
     }
 
@@ -55,17 +67,35 @@ public class Cell {
         creatures.get(creatureName).add(CreatureFactory.factory(creatureName));
     }
 
-    public void removeCreature(String creatureName, int index) throws NoCreatureException {
-        if (getNumberOfCreatures(creatureName) <= 0) {
+    public void removeCreature(String creatureName, int index) throws NoCreatureException, UnknownCreatureException {
+        if (!containCreature(creatureName)) {
             throw new NoCreatureException("No " + creatureName + "in cell;");
         }
         creatures.get(creatureName).remove(index);
     }
 
-    public void removeCreature(String creatureName, Creature creature) throws NoCreatureException {
-        if (getNumberOfCreatures(creatureName) <= 0) {
+    public void removeCreature(String creatureName, Creature creature) throws NoCreatureException, UnknownCreatureException {
+        if (!containCreature(creatureName)) {
             throw new NoCreatureException("No " + creatureName + "in cell;");
         }
         creatures.get(creatureName).remove(creature);
+    }
+
+    public boolean containCreature(String creatureName) throws UnknownCreatureException {
+        return getNumberOfCreatures(creatureName) > 0;
+    }
+
+    public Set<String> containCreature(Set<String> nameSet) {
+        Set<String> res = new LinkedHashSet<>();
+        for (String name: nameSet) {
+            try {
+                if (containCreature(name)) {
+                    res.add(name);
+                }
+            } catch (UnknownCreatureException e) {
+
+            }
+        }
+        return res;
     }
 }

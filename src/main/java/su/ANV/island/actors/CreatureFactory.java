@@ -27,6 +27,7 @@ public class CreatureFactory {
             ((Animal)res).setHanger(((AnimalData) data).getMaxHanger() / 2);
             ((Animal)res).setFoodData(menu.getHowToEat().get(name));
         }
+        res.setName(name);
         res.setId(MAX_ID.getAndAdd(1));
         res.setWeight(data.getWeight());
         return res;

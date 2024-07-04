@@ -1,6 +1,7 @@
 package su.ANV.island.island;
 
 import lombok.ToString;
+import su.ANV.island.exception.CellOutOfIslandExceptoin;
 import su.ANV.island.params.Params;
 
 import java.util.List;
@@ -26,7 +27,10 @@ public class Island {
         return island;
     }
 
-    public Cell getCell(int x, int y) {
+    public Cell getCell(int x, int y) throws CellOutOfIslandExceptoin {
+        if (x < 0 || x >= Params.ISLAND_WIDTH || y < 0 || y >= Params.ISLAND_HEIGHT) {
+            throw new CellOutOfIslandExceptoin();
+        }
         return cells.get(y * Params.ISLAND_WIDTH + x);
     }
 
