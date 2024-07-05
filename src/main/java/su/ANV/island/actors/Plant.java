@@ -10,14 +10,4 @@ import su.ANV.island.island.Cell;
 @ToString(callSuper=true)
 public class Plant extends Creature {
 
-    public void reproduction(Cell cell) {
-        int reproductionChance = 50;
-        if (random.nextInt(100) < reproductionChance) {
-            try {
-                cell.addCreature(name);
-            } catch (UnknownCreatureException | TooMatchCreatureException e) {
-
-            }
-        }
-    }
 }

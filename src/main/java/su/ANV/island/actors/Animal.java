@@ -3,6 +3,7 @@ package su.ANV.island.actors;
 import lombok.Data;
 import lombok.ToString;
 import su.ANV.island.data.rawData.FoodData;
+import su.ANV.island.exception.AlreadyDeadExceptoin;
 import su.ANV.island.island.Cell;
 
 import java.util.Set;
@@ -16,36 +17,19 @@ public class Animal extends Creature {
     FoodData foodData;
     double hangerLimit = 0.5;
 
-    public void cycle(Cell cell) {
-        if (hanger < maxHanger * hangerLimit) {
-            if (eat(cell)) {}
+    public void eat(double foodMass) {
+        hanger += foodMass;
+        hanger = Math.min(hanger, maxHanger);
+    }
+
+    public void digest() {
+        hanger -= maxHanger / 4;
+        if (hanger <= 0) {
+            try {
+                die();
+            } catch (AlreadyDeadExceptoin e) {
+
+            }
         }
     }
-
-    public boolean eat(Cell cell) {
-        Set<String> foodInCell = cell.containCreature(foodData.getFoodSet());
-        if (foodInCell.isEmpty()) {
-            return false;
-        }
-
-        return false;
-    }
-
-    private boolean findFood() {
-        return false;
-    }
-
-    private boolean reproduction() {
-        return false;
-    }
-
-    private boolean findReproduction() {
-        return false;
-    }
-
-    private boolean justWalk() {
-        return true;
-    }
-
-
 }

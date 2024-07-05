@@ -1,6 +1,7 @@
 package su.ANV.island.island;
 
 import lombok.ToString;
+import su.ANV.island.actors.Animal;
 import su.ANV.island.actors.Creature;
 import su.ANV.island.actors.CreatureFactory;
 import su.ANV.island.data.rawData.CreatureData;
@@ -9,6 +10,7 @@ import su.ANV.island.exception.NoCreatureException;
 import su.ANV.island.exception.TooMatchCreatureException;
 import su.ANV.island.exception.UnknownCreatureException;
 import su.ANV.island.io.TextOut;
+import su.ANV.island.services.RandomService;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -17,8 +19,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @ToString
 public class Cell {
     private Map<String, List<Creature>> creatures;
-    @ToString.Exclude
-    Random random = new Random();
+
     @ToString.Exclude
     private static final Zoo zoo = Zoo.getZoo();
 
@@ -30,7 +31,7 @@ public class Cell {
         for(String creatureName: zooCreatures.keySet()) {
             try {
                 tmp = new CopyOnWriteArrayList<Creature>();
-                number = random.nextInt(zooCreatures.get(creatureName).getMaxOnCell());
+                number = RandomService.roll(zooCreatures.get(creatureName).getMaxOnCell());
                 for (int i = 0; i < number; i++) {
                     tmp.add(CreatureFactory.factory(creatureName));
                 }
@@ -65,6 +66,14 @@ public class Cell {
             throw new TooMatchCreatureException("Too match " + creatureName + "in one cell to add one more;");
         }
         creatures.get(creatureName).add(CreatureFactory.factory(creatureName));
+    }
+
+    public void addAnimal(Animal animal) throws UnknownCreatureException, TooMatchCreatureException {
+        String animalName = animal.getName();
+        if (getNumberOfCreatures(animalName) >= zoo.getDataByName(animalName).getMaxOnCell()) {
+            throw new TooMatchCreatureException("Too match " + animalName + "in one cell to add one more;");
+        }
+        creatures.get(animalName).add(animal);
     }
 
     public void removeCreature(String creatureName, int index) throws NoCreatureException, UnknownCreatureException {
