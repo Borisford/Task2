@@ -7,6 +7,8 @@ import su.ANV.island.exception.UnknownCreatureException;
 import su.ANV.island.io.TextOut;
 import su.ANV.island.island.Cell;
 
+import java.util.Arrays;
+
 public class ReproductionService {
     private final int reproductionChance = 50;
 
@@ -15,10 +17,11 @@ public class ReproductionService {
             try {
                 cell.addCreature(creature.getName());
             } catch (UnknownCreatureException | TooMatchCreatureException e) {
-                System.out.println(e.getMessage());
-                //e.printStackTrace();
+                TextOut.getTextOut().writeln(e.getMessage(), 1);
+                TextOut.getTextOut().writeln(Arrays.toString(e.getStackTrace()), 2);
             }
-            TextOut.write(creature.getName() + " #" + creature.getId() + " reprodused itself");
+            TextOut.getTextOut().writeln(creature.getName() + " #" + creature.getId() + " reprodused itself", 3);
+            TextOut.getTextOut().writeln(creature.getName() + " reprodused itself", 0);
         }
     }
 }

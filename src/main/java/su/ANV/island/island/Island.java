@@ -7,8 +7,10 @@ import su.ANV.island.exception.CellOutOfIslandExceptoin;
 import su.ANV.island.exception.NoCreatureException;
 import su.ANV.island.exception.TooMatchCreatureException;
 import su.ANV.island.exception.UnknownCreatureException;
+import su.ANV.island.io.TextOut;
 import su.ANV.island.params.Params;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -46,27 +48,27 @@ public class Island {
         try {
             fromCell = getCell(fromX, fromY);
         } catch (CellOutOfIslandExceptoin e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
+            TextOut.getTextOut().writeln(e.getMessage(), 1);
+            TextOut.getTextOut().writeln(Arrays.toString(e.getStackTrace()), 2);
             return;
         }
         try {
             toCell.addAnimal(animal);
         } catch (UnknownCreatureException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
+            TextOut.getTextOut().writeln(e.getMessage(), 1);
+            TextOut.getTextOut().writeln(Arrays.toString(e.getStackTrace()), 2);
         }
 
         try {
             fromCell.removeCreature(animal.getName(), animal);
         } catch (NoCreatureException | UnknownCreatureException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
+            TextOut.getTextOut().writeln(e.getMessage(), 1);
+            TextOut.getTextOut().writeln(Arrays.toString(e.getStackTrace()), 2);
             try {
                 toCell.removeCreature(animal.getName(), animal);
             } catch (NoCreatureException | UnknownCreatureException ex) {
-                System.out.println(e.getMessage());
-                e.printStackTrace();
+                TextOut.getTextOut().writeln(e.getMessage(), 1);
+                TextOut.getTextOut().writeln(Arrays.toString(e.getStackTrace()), 2);
             }
         }
 
@@ -79,12 +81,12 @@ public class Island {
                 try {
                     s = island.getCell(x,y).miniCell();
                 } catch (CellOutOfIslandExceptoin e) {
-                    System.out.println(e.getMessage());
-                    e.printStackTrace();
+                    TextOut.getTextOut().writeln(e.getMessage(), 1);
+                    TextOut.getTextOut().writeln(Arrays.toString(e.getStackTrace()), 2);
                 }
-                System.out.print(s);
+                TextOut.getTextOut().write(s, 3);
             }
-            System.out.println();
+            TextOut.getTextOut().writeln("", 3);
         }
     }
 

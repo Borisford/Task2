@@ -6,13 +6,11 @@ import su.ANV.island.actors.Plant;
 import su.ANV.island.exception.CellOutOfIslandExceptoin;
 import su.ANV.island.exception.NoCreatureException;
 import su.ANV.island.exception.UnknownCreatureException;
+import su.ANV.island.io.TextOut;
 import su.ANV.island.params.Params;
 import su.ANV.island.services.*;
 
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 
 public class Processor {
@@ -21,7 +19,7 @@ public class Processor {
 
     private Processor() {
         island = Island.getIsland();
-        System.out.println(island);
+        TextOut.getTextOut().writeln(island.toString(), 3);
         island.matrix();
     }
 
@@ -35,7 +33,7 @@ public class Processor {
     public void process() {
         /*for (int x = 0; x < Params.ISLAND_WIDTH; x++) {
             for (int y = 0; y < Params.ISLAND_HEIGHT; y++) {
-                System.out.println("x = " + x + "; y = " + y + ";");
+                TextOut.write("x = " + x + "; y = " + y + ";");
                 processCell(x, y);
                 Scanner console = new Scanner(System.in);
                 String name = console.nextLine();
@@ -58,8 +56,8 @@ public class Processor {
                         processCreature(creature, cell, x, y);
                     }
                 } catch (UnknownCreatureException | NoCreatureException e) {
-                    System.out.println(e.getMessage());
-                    e.printStackTrace();
+                    TextOut.getTextOut().writeln(e.getMessage(), 1);
+                    TextOut.getTextOut().writeln(Arrays.toString(e.getStackTrace()), 2);
                 }
             }
     }

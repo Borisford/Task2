@@ -37,8 +37,8 @@ public class Cell {
                 }
                 creatures.put(creatureName, tmp);
             } catch (UnknownCreatureException e) {
-                TextOut.write(e.getMessage());
-                e.printStackTrace();
+                TextOut.getTextOut().writeln(e.getMessage(), 1);
+                TextOut.getTextOut().writeln(Arrays.toString(e.getStackTrace()), 2);
             }
         }
     }
@@ -51,15 +51,14 @@ public class Cell {
             try {
                 i = getNumberOfCreatures(s);
             } catch (UnknownCreatureException e) {
-                System.out.println(e.getMessage());
-                e.printStackTrace();
+                TextOut.getTextOut().writeln(e.getMessage(), 1);
+                TextOut.getTextOut().writeln(Arrays.toString(e.getStackTrace()), 2);
             }
             if (i > 0) {
                 res.add(s);
             }
         }
         return res;
-        //return creatures.keySet();
     }
 
     public List<Creature> getCreatureList(String creatureName) throws UnknownCreatureException, NoCreatureException {
@@ -117,8 +116,8 @@ public class Cell {
                     res.add(name);
                 }
             } catch (UnknownCreatureException e) {
-                System.out.println(e.getMessage());
-                e.printStackTrace();
+                TextOut.getTextOut().writeln(e.getMessage(), 1);
+                TextOut.getTextOut().writeln(Arrays.toString(e.getStackTrace()), 2);
             }
         }
         return res;
@@ -131,8 +130,8 @@ public class Cell {
             try {
                 res.append(key.charAt(0)).append(":").append(getNumberOfCreatures(key)).append(";");
             } catch (UnknownCreatureException e) {
-                System.out.println(e.getMessage());
-                e.printStackTrace();
+                TextOut.getTextOut().writeln(e.getMessage(), 1);
+                TextOut.getTextOut().writeln(Arrays.toString(e.getStackTrace()), 2);
             }
         }
         res.append("]");
