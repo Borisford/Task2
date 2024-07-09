@@ -17,19 +17,19 @@ public class Zoo {
         creatureDataMap = new ConcurrentHashMap<String, CreatureData>();
         AnimalData wolf = new AnimalData();
         wolf.setWeight(50);
-        wolf.setMaxOnCell(30);
+        wolf.setMaxOnCell(1);
         wolf.setSpeed(3);
         wolf.setMaxHanger(8);
         creatureDataMap.put("wolf", wolf);
         AnimalData rabbit = new AnimalData();
         rabbit.setWeight(2);
-        rabbit.setMaxOnCell(150);
+        rabbit.setMaxOnCell(4);
         rabbit.setSpeed(2);
         rabbit.setMaxHanger(0.45);
         creatureDataMap.put("rabbit", rabbit);
         PlantData plantData = new PlantData();
         plantData.setWeight(1);
-        plantData.setMaxOnCell(2);
+        plantData.setMaxOnCell(20);
         creatureDataMap.put("plant", plantData);
     }
 

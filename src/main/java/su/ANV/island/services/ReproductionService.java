@@ -15,9 +15,10 @@ public class ReproductionService {
             try {
                 cell.addCreature(creature.getName());
             } catch (UnknownCreatureException | TooMatchCreatureException e) {
-
+                System.out.println(e.getMessage());
+                //e.printStackTrace();
             }
-            TextOut.write(creature.getName() + " reprodused itself");
+            TextOut.write(creature.getName() + " #" + creature.getId() + " reprodused itself");
         }
     }
 }

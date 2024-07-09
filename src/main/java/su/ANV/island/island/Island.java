@@ -1,5 +1,6 @@
 package su.ANV.island.island;
 
+import lombok.Getter;
 import lombok.ToString;
 import su.ANV.island.actors.Animal;
 import su.ANV.island.exception.CellOutOfIslandExceptoin;
@@ -14,6 +15,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @ToString
 public class Island {
     private static Island island = null;
+    @Getter
     private List<Cell> cells;
 
     private Island() {
@@ -44,25 +46,46 @@ public class Island {
         try {
             fromCell = getCell(fromX, fromY);
         } catch (CellOutOfIslandExceptoin e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
             return;
         }
         try {
             toCell.addAnimal(animal);
         } catch (UnknownCreatureException e) {
-
+            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
 
         try {
             fromCell.removeCreature(animal.getName(), animal);
         } catch (NoCreatureException | UnknownCreatureException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
             try {
                 toCell.removeCreature(animal.getName(), animal);
             } catch (NoCreatureException | UnknownCreatureException ex) {
-
+                System.out.println(e.getMessage());
+                e.printStackTrace();
             }
         }
 
     }
 
+    public void matrix() {
+        String s = "";
+        for (int x = 0; x < Params.ISLAND_WIDTH; x++) {
+            for (int y = 0; y < Params.ISLAND_HEIGHT; y++) {
+                try {
+                    s = island.getCell(x,y).miniCell();
+                } catch (CellOutOfIslandExceptoin e) {
+                    System.out.println(e.getMessage());
+                    e.printStackTrace();
+                }
+                System.out.print(s);
+            }
+            System.out.println();
+        }
+    }
 
 }

@@ -21,7 +21,7 @@ public class FoodService {
     public void eat(Animal animal, Cell cell) {
         Set<String> animalsToEat = cell.containCreature(animal.getFoodData().getFoodSet());
         if (animalsToEat.isEmpty()) {
-            TextOut.write("Nothing to eat to " + animal.getName());
+            TextOut.write("Nothing to eat to " + animal.getName() + " #" + animal.getId());
             return;
         }
         int roll = RandomService.roll(animalsToEat.size());
@@ -30,7 +30,7 @@ public class FoodService {
         try {
             foodList = cell.getCreatureList(foodName);
         } catch (UnknownCreatureException | NoCreatureException e) {
-            TextOut.write(animal.getName() + "choose illigal food.");
+            TextOut.write(animal.getName() + " #" + animal.getId() + " choose illigal food.");
             return;
         }
         roll = RandomService.roll(foodList.size());
@@ -38,10 +38,10 @@ public class FoodService {
         try {
             food.die();
         } catch (AlreadyDeadExceptoin e) {
-            TextOut.write(animal.getName() + "choose illigal food.");
+            TextOut.write(animal.getName() + " #" + animal.getId() + " choose illigal food.");
             return;
         }
         animal.eat(food.getWeight());
-        TextOut.write(animal.getName() + " ate " + foodName);
+        TextOut.write(animal.getName() + " #" + animal.getId() + " ate " + foodName);
     }
 }

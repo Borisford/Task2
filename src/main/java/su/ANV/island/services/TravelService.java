@@ -13,9 +13,11 @@ public class TravelService {
         int toX = fromX, toY = fromY;
         int dx, dy, dir;
         boolean isDone = false;
-        dx = RandomService.roll(animal.getSpeed());
-        dy = animal.getSpeed() - dx;
         while (!isDone){
+            toX = fromX;
+            toY = fromY;
+            dx = RandomService.roll(animal.getSpeed());
+            dy = animal.getSpeed() - dx;
             try {
                 dir = RandomService.roll(4);
                 if (dir == 0) {
@@ -35,10 +37,13 @@ public class TravelService {
                 toX = Math.min(toX, Params.ISLAND_WIDTH);
                 toY = Math.max(toY, 0);
                 toY = Math.min(toY, Params.ISLAND_HEIGHT);
+                System.out.println("from(x:" + fromX + ";y:" + fromY +);
                 island.moveAnimal(animal, fromX, fromY, toX, toY);
                 isDone = true;
             } catch (CellOutOfIslandExceptoin | TooMatchCreatureException e) {
                 isDone = false;
+                System.out.println(e.getMessage());
+                e.printStackTrace();
             }
         }
 

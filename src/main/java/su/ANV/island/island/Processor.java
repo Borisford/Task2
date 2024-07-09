@@ -11,16 +11,18 @@ import su.ANV.island.services.*;
 
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 import java.util.Set;
 
 
 public class Processor {
-    private final static Random random = new Random();
     private static Processor processor = null;
     private Island island;
 
     private Processor() {
         island = Island.getIsland();
+        System.out.println(island);
+        island.matrix();
     }
 
     public static Processor getProcessor() {
@@ -31,17 +33,23 @@ public class Processor {
     }
 
     public void process() {
-        for (int x = 0; x < Params.ISLAND_WIDTH; x++) {
+        /*for (int x = 0; x < Params.ISLAND_WIDTH; x++) {
             for (int y = 0; y < Params.ISLAND_HEIGHT; y++) {
+                System.out.println("x = " + x + "; y = " + y + ";");
                 processCell(x, y);
+                Scanner console = new Scanner(System.in);
+                String name = console.nextLine();
             }
+        }*/
+        int i = 0;
+        for (Cell cell:island.getCells()) {
+            processCell(cell, i % Params.ISLAND_WIDTH, i / Params.ISLAND_WIDTH);
+            i++;
         }
     }
 
-    private void processCell(int x, int y) {
-        try {
-            Cell cell = island.getCell(x, y);
-            Set<String> creaturesSet = cell.getCreaturesSet();
+    private void processCell(Cell cell, int x, int y) {
+        Set<String> creaturesSet = cell.getCreaturesSet();
             List<Creature> creatureList;
             for (String creatureName:creaturesSet) {
                 try {
@@ -50,12 +58,10 @@ public class Processor {
                         processCreature(creature, cell, x, y);
                     }
                 } catch (UnknownCreatureException | NoCreatureException e) {
-
+                    System.out.println(e.getMessage());
+                    e.printStackTrace();
                 }
             }
-        } catch (CellOutOfIslandExceptoin e) {
-
-        }
     }
 
     private void processCreature(Creature creature, Cell cell, int x, int y) {

@@ -38,20 +38,35 @@ public class Cell {
                 creatures.put(creatureName, tmp);
             } catch (UnknownCreatureException e) {
                 TextOut.write(e.getMessage());
-                TextOut.write(e.getStackTrace().toString());
+                e.printStackTrace();
             }
         }
     }
 
     public Set<String> getCreaturesSet() {
-        return creatures.keySet();
+        Set<String> res = new HashSet<>();
+        int i;
+        for (String s: creatures.keySet()) {
+            i = 0;
+            try {
+                i = getNumberOfCreatures(s);
+            } catch (UnknownCreatureException e) {
+                System.out.println(e.getMessage());
+                e.printStackTrace();
+            }
+            if (i > 0) {
+                res.add(s);
+            }
+        }
+        return res;
+        //return creatures.keySet();
     }
 
     public List<Creature> getCreatureList(String creatureName) throws UnknownCreatureException, NoCreatureException {
         if (containCreature(creatureName)) {
             return creatures.get(creatureName);
         }
-        throw new NoCreatureException("No" + creatureName + "in cell");
+        throw new NoCreatureException("No " + creatureName + " in cell");
     }
 
     public int getNumberOfCreatures(String creatureName) throws UnknownCreatureException {
@@ -63,7 +78,7 @@ public class Cell {
 
     public void addCreature(String creatureName) throws UnknownCreatureException, TooMatchCreatureException {
         if (getNumberOfCreatures(creatureName) >= zoo.getDataByName(creatureName).getMaxOnCell()) {
-            throw new TooMatchCreatureException("Too match " + creatureName + "in one cell to add one more;");
+            throw new TooMatchCreatureException("Too match " + creatureName + " in one cell to add one more;");
         }
         creatures.get(creatureName).add(CreatureFactory.factory(creatureName));
     }
@@ -71,21 +86,21 @@ public class Cell {
     public void addAnimal(Animal animal) throws UnknownCreatureException, TooMatchCreatureException {
         String animalName = animal.getName();
         if (getNumberOfCreatures(animalName) >= zoo.getDataByName(animalName).getMaxOnCell()) {
-            throw new TooMatchCreatureException("Too match " + animalName + "in one cell to add one more;");
+            throw new TooMatchCreatureException("Too match " + animalName + " in one cell to add one more;");
         }
         creatures.get(animalName).add(animal);
     }
 
     public void removeCreature(String creatureName, int index) throws NoCreatureException, UnknownCreatureException {
         if (!containCreature(creatureName)) {
-            throw new NoCreatureException("No " + creatureName + "in cell;");
+            throw new NoCreatureException("No " + creatureName + " in cell;");
         }
         creatures.get(creatureName).remove(index);
     }
 
     public void removeCreature(String creatureName, Creature creature) throws NoCreatureException, UnknownCreatureException {
         if (!containCreature(creatureName)) {
-            throw new NoCreatureException("No " + creatureName + "in cell;");
+            throw new NoCreatureException("No " + creatureName + " in cell;");
         }
         creatures.get(creatureName).remove(creature);
     }
@@ -102,9 +117,25 @@ public class Cell {
                     res.add(name);
                 }
             } catch (UnknownCreatureException e) {
-
+                System.out.println(e.getMessage());
+                e.printStackTrace();
             }
         }
         return res;
+    }
+
+    public String miniCell() {
+        StringBuilder res = new StringBuilder();
+        res.append("[");
+        for (String key: creatures.keySet()) {
+            try {
+                res.append(key.charAt(0)).append(":").append(getNumberOfCreatures(key)).append(";");
+            } catch (UnknownCreatureException e) {
+                System.out.println(e.getMessage());
+                e.printStackTrace();
+            }
+        }
+        res.append("]");
+        return res.toString();
     }
 }

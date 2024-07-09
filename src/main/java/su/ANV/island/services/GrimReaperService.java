@@ -9,11 +9,14 @@ import su.ANV.island.island.Cell;
 public class GrimReaperService {
 
     public void rip(Creature creature, Cell cell) {
-        try {
-            cell.removeCreature(creature.getName(), creature);
-        } catch (NoCreatureException | UnknownCreatureException e) {
-
+        if (!creature.isAlive()){
+            try {
+                cell.removeCreature(creature.getName(), creature);
+            } catch (NoCreatureException | UnknownCreatureException e) {
+                System.out.println(e.getMessage());
+                e.printStackTrace();
+            }
+            TextOut.write(creature.getName() + " #" + creature.getId() + " is dead");
         }
-        TextOut.write(creature.getName() + " is dead");
     }
 }

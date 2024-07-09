@@ -19,16 +19,19 @@ public class Animal extends Creature {
 
     public void eat(double foodMass) {
         hanger += foodMass;
+        System.out.println(name + " food after eat = " + hanger);
         hanger = Math.min(hanger, maxHanger);
     }
 
     public void digest() {
-        hanger -= maxHanger / 4;
+        hanger -= maxHanger / 10;
+        System.out.println(name + " food after digest = " + hanger);
         if (hanger <= 0) {
             try {
                 die();
             } catch (AlreadyDeadExceptoin e) {
-
+                System.out.println(e.getMessage());
+                e.printStackTrace();
             }
         }
     }
