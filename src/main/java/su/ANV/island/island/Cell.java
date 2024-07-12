@@ -21,11 +21,12 @@ public class Cell {
     private Map<String, List<Creature>> creatures;
 
     @ToString.Exclude
-    private static final Zoo zoo = Zoo.getZoo();
+    private static Zoo zoo; // Zoo.getZoo();
 
-    public Cell() {
+    public Cell(Zoo zoo) {
+        this.zoo = zoo;
         creatures = new ConcurrentHashMap<String, List<Creature>>();
-        Map<String, CreatureData> zooCreatures = zoo.getCreatureDataMap();
+        Map<String, CreatureData> zooCreatures = zoo.creatureDataMap();
         List<Creature> tmp;
         int number;
         for(String creatureName: zooCreatures.keySet()) {

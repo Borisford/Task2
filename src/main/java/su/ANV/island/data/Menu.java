@@ -1,5 +1,6 @@
 package su.ANV.island.data;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Value;
 import su.ANV.island.data.rawData.FoodData;
 import su.ANV.island.exception.UnknownCreatureException;
@@ -12,8 +13,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 @Value
 public class Menu {
-    private static Menu menu = null;
-    private ConcurrentHashMap<String, FoodData> howToEat;
+    @JsonProperty
+    public ConcurrentHashMap<String, FoodData> howToEat;
 
     public Menu() {
         howToEat = new ConcurrentHashMap<String, FoodData>();
@@ -25,10 +26,4 @@ public class Menu {
         howToEat.put("rabbit", mapTmp);
     }
 
-    public static Menu getMenu() {
-        if (menu == null) {
-            menu = new Menu();
-        }
-        return menu;
-    }
 }

@@ -1,18 +1,21 @@
 package su.ANV.island.actors;
 
 import su.ANV.island.data.Menu;
+import su.ANV.island.data.MenuAdmin;
+import su.ANV.island.data.ZooAdmin;
 import su.ANV.island.data.rawData.AnimalData;
 import su.ANV.island.data.rawData.CreatureData;
 import su.ANV.island.data.rawData.PlantData;
 import su.ANV.island.data.Zoo;
 import su.ANV.island.exception.UnknownCreatureException;
+import su.ANV.island.params.Params;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class CreatureFactory {
-    private static final Zoo zoo = Zoo.getZoo();
+    private static final Zoo zoo = ZooAdmin.getZoo(Params.ZOO_JSON_PATH);
     private static final AtomicInteger MAX_ID = new AtomicInteger(0);
-    private static final Menu menu = Menu.getMenu();
+    private static final Menu menu = MenuAdmin.getMenu(Params.MENU_JSON_PATH);
 
     public static Creature factory(String name) throws UnknownCreatureException {
         CreatureData data = zoo.getDataByName(name);

@@ -1,0 +1,22 @@
+{
+  "animalDataMap": {
+    "wolf": {
+      "weight": 50,
+      "maxOnCell": 1,
+      "speed": 3,
+      "maxHanger": 8
+    },
+    "rabbit": {
+      "weight": 2,
+      "maxOnCell": 4,
+      "speed": 2,
+      "maxHanger": 0.45
+    }
+  },
+  "plantDataMap": {
+    "plant": {
+      "weight": 1,
+      "maxOnCell": 20
+    }
+  }
+}

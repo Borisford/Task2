@@ -3,6 +3,8 @@ package su.ANV.island.island;
 import lombok.Getter;
 import lombok.ToString;
 import su.ANV.island.actors.Animal;
+import su.ANV.island.data.Zoo;
+import su.ANV.island.data.ZooAdmin;
 import su.ANV.island.exception.CellOutOfIslandExceptoin;
 import su.ANV.island.exception.NoCreatureException;
 import su.ANV.island.exception.TooMatchCreatureException;
@@ -17,14 +19,17 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @ToString
 public class Island {
     private static Island island = null;
+    private static Zoo zoo;
     @Getter
     private List<Cell> cells;
 
     private Island() {
+        zoo = ZooAdmin.getZoo(Params.ZOO_JSON_PATH);
+        TextOut.getTextOut().writeln(zoo.toString(), 3);
         int size = Params.ISLAND_HEIGHT * Params.ISLAND_WIDTH;
         cells = new CopyOnWriteArrayList<Cell>();
         for (int i = 0; i < size; i++) {
-            cells.add(new Cell());
+            cells.add(new Cell(zoo));
         }
     }
 

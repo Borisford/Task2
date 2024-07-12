@@ -1,6 +1,6 @@
 package su.ANV.island.data.rawData;
 
-import lombok.Getter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.ToString;
 import su.ANV.island.exception.UnknownCreatureException;
 
@@ -10,13 +10,14 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @ToString
 public class FoodData {
+    @JsonProperty
     Map<String, Integer> data = new ConcurrentHashMap<String, Integer>();
 
     public void addFood(String food, int percent) {
         data.put(food, percent);
     }
 
-    public Set<String> getFoodSet() {
+    public Set<String> foodSet() {
         return data.keySet();
     }
 

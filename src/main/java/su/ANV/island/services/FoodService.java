@@ -2,8 +2,6 @@ package su.ANV.island.services;
 
 import su.ANV.island.actors.Animal;
 import su.ANV.island.actors.Creature;
-import su.ANV.island.data.Menu;
-import su.ANV.island.data.Zoo;
 import su.ANV.island.exception.AlreadyDeadExceptoin;
 import su.ANV.island.exception.NoCreatureException;
 import su.ANV.island.exception.UnknownCreatureException;
@@ -15,11 +13,9 @@ import java.util.List;
 import java.util.Set;
 
 public class FoodService {
-    private Menu menu = Menu.getMenu();
-    private Zoo zoo = Zoo.getZoo();
 
     public void eat(Animal animal, Cell cell) {
-        Set<String> animalsToEat = cell.containCreature(animal.getFoodData().getFoodSet());
+        Set<String> animalsToEat = cell.containCreature(animal.getFoodData().foodSet());
         if (animalsToEat.isEmpty()) {
             TextOut.getTextOut().writeln("Nothing to eat to " + animal.getName() + " #" + animal.getId(), 3);
             return;
