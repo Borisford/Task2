@@ -32,7 +32,7 @@ public class Cell {
         for(String creatureName: zooCreatures.keySet()) {
             try {
                 tmp = new CopyOnWriteArrayList<Creature>();
-                number = RandomService.roll(zooCreatures.get(creatureName).getMaxOnCell());
+                number = new RandomService().roll(zooCreatures.get(creatureName).getMaxOnCell());
                 for (int i = 0; i < number; i++) {
                     tmp.add(CreatureFactory.factory(creatureName));
                 }

@@ -13,7 +13,7 @@ public class ReproductionService {
     private final int reproductionChance = 50;
 
     public void reproduction(Creature creature, Cell cell) {
-        if (RandomService.chance(reproductionChance)) {
+        if (new RandomService().chance(reproductionChance)) {
             try {
                 cell.addCreature(creature.getName());
             } catch (UnknownCreatureException | TooMatchCreatureException e) {

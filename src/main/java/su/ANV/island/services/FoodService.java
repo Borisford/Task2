@@ -20,7 +20,7 @@ public class FoodService {
             TextOut.getTextOut().writeln("Nothing to eat to " + animal.getName() + " #" + animal.getId(), 3);
             return;
         }
-        int roll = RandomService.roll(animalsToEat.size());
+        int roll = new RandomService().roll(animalsToEat.size());
         String foodName = new ArrayList<>(animalsToEat).get(roll);
         List<Creature> foodList;
         try {
@@ -29,7 +29,10 @@ public class FoodService {
             TextOut.getTextOut().writeln(animal.getName() + " #" + animal.getId() + " choose illigal food.", 3);
             return;
         }
-        roll = RandomService.roll(foodList.size());
+        if (foodList.isEmpty()) {
+            return;
+        }
+        roll = new RandomService().roll(foodList.size());
         Creature food = foodList.get(roll);
         try {
             food.die();

@@ -11,16 +11,19 @@ public class TravelService {
     private Island island = Island.getIsland();
 
     public void goTravel(Animal animal, int fromX, int fromY) {
+        if (animal.getSpeed() <= 0) {
+            return;
+        }
         int toX, toY;
         int dx, dy, dir;
         boolean isDone = false;
         while (!isDone){
             toX = fromX;
             toY = fromY;
-            dx = RandomService.roll(animal.getSpeed());
+            dx = new RandomService().roll(animal.getSpeed());
             dy = animal.getSpeed() - dx;
             try {
-                dir = RandomService.roll(4);
+                dir = new RandomService().roll(4);
                 if (dir == 0) {
                     toX += dx;
                     toY += dy;

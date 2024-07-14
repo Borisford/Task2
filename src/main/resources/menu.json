@@ -2,105 +2,10 @@
   "howToEat": {
     "Wolf": {
       "data": {
-        "Horse": 10,
-        "Deer": 15,
-        "Rabbit": 60,
-        "Mouse": 80,
-        "Goat": 60,
-        "Sheep": 70,
-        "Wild Boar": 15,
-        "Buffalo": 10,
-        "Duck": 40
-      }
-    },
-    "Boa Constrictor": {
-      "data": {
-        "Fox": 15,
-        "Rabbit": 20,
-        "Mouse": 40,
-        "Duck": 10
-      }
-    },
-    "Fox": {
-      "data": {
-        "Rabbit": 70,
-        "Mouse": 90,
-        "Duck": 60,
-        "Caterpillar": 40
-      }
-    },
-    "Bear": {
-      "data": {
-        "Boa Constrictor": 80,
-        "Horse": 40,
-        "Deer": 80,
-        "Rabbit": 80,
-        "Mouse": 90,
-        "Goat": 70,
-        "Sheep": 70,
-        "Wild Boar": 50,
-        "Buffalo": 20,
-        "Duck": 10
-      }
-    },
-    "Eagle": {
-      "data": {
-        "Fox": 10,
-        "Rabbit": 90,
-        "Mouse": 90,
-        "Duck": 80
-      }
-    },
-    "Horse": {
-      "data": {
-        "Plant": 100
-      }
-    },
-    "Deer": {
-      "data": {
-        "Plant": 100
+        "Rabbit": 60
       }
     },
     "Rabbit": {
-      "data": {
-        "Plant": 100
-      }
-    },
-    "Mouse": {
-      "data": {
-        "Plant": 100,
-        "Caterpillar": 90
-      }
-    },
-    "Goat": {
-      "data": {
-        "Plant": 100
-      }
-    },
-    "Sheep": {
-      "data": {
-        "Plant": 100
-      }
-    },
-    "Wild Boar": {
-      "data": {
-        "Plant": 100,
-        "Mouse": 50,
-        "Caterpillar": 90
-      }
-    },
-    "Buffalo": {
-      "data": {
-        "Plant": 100
-      }
-    },
-    "Duck": {
-      "data": {
-        "Plant": 100,
-        "Caterpillar": 90
-      }
-    },
-    "Caterpillar": {
       "data": {
         "Plant": 100
       }
