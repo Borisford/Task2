@@ -1,0 +1,8 @@
+{
+  "ISLAND_WIDTH": 5,
+  "ISLAND_HEIGHT": 5,
+  "ZOO_JSON_PATH": "src/main/resources/creature.json",
+  "MENU_JSON_PATH": "src/main/resources/menu.json",
+  "MAX_DAYS": 10,
+  "REPRODUCTION_CHANCE": 50
+}

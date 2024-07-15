@@ -3,7 +3,7 @@ package su.ANV.island.services;
 import java.util.Random;
 
 public class RandomService {
-    private Random random = new Random();
+    private final Random random = new Random();
 
     public boolean chance(int chance) {
         return random.nextInt(100) < chance;

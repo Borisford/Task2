@@ -1,21 +1,14 @@
 package su.ANV.island.island;
 
-import su.ANV.island.actors.Animal;
-import su.ANV.island.actors.Creature;
-import su.ANV.island.actors.Plant;
-import su.ANV.island.exception.CellOutOfIslandExceptoin;
-import su.ANV.island.exception.NoCreatureException;
-import su.ANV.island.exception.UnknownCreatureException;
+import su.ANV.island.exception.NoMorePlantsException;
 import su.ANV.island.io.TextOut;
 import su.ANV.island.params.Params;
 import su.ANV.island.services.*;
 
-import java.util.*;
-
 
 public class Processor {
     private static Processor processor = null;
-    private Island island;
+    private final Island island;
 
     private Processor() {
         island = Island.getIsland();
@@ -31,14 +24,25 @@ public class Processor {
     }
 
     public void process() {
-        /*for (int x = 0; x < Params.ISLAND_WIDTH; x++) {
-            for (int y = 0; y < Params.ISLAND_HEIGHT; y++) {
-                TextOut.write("x = " + x + "; y = " + y + ";");
-                processCell(x, y);
-                Scanner console = new Scanner(System.in);
-                String name = console.nextLine();
+        int day = 0;
+        while (true) {
+            try {
+                processDay();
+                if (Params.MAX_DAYS > 0 && day >= Params.MAX_DAYS) {
+                    TextOut.getTextOut().writeln("Game stoped on day " + day, 0);
+                    break;
+                }
+            } catch (NoMorePlantsException e) {
+                TextOut.getTextOut().writeln("No more plants. Everyone will die.", 0);
+                break;
             }
-        }*/
+            day++;
+        }
+    }
+
+
+
+    public void processDay() throws NoMorePlantsException {
         int i = 0, x, y;
         Thread[] threads = new Thread[island.getCells().size()];
         CellProcessor cellProcessor;
@@ -49,7 +53,6 @@ public class Processor {
             cellProcessor = new CellProcessor(cell, x, y);
             threads[i] = new Thread(cellProcessor);
             threads[i].start();
-            //processCell(cell, i % Params.ISLAND_WIDTH, i / Params.ISLAND_WIDTH);
             i++;
         }
         i = 0;
@@ -64,47 +67,9 @@ public class Processor {
             TextOut.getTextOut().writeln(i + "Done!", 42);
             i++;
         }
-    }
-
-
-
-    /*private void processCell(Cell cell, int x, int y) {
-        Set<String> creaturesSet = cell.getCreaturesSet();
-        List<Creature> creatureList;
-        for (String creatureName : creaturesSet) {
-            try {
-                creatureList = cell.getCreatureList(creatureName);
-                for (Creature creature : creatureList) {
-                    processCreature(creature, cell, x, y);
-                }
-            } catch (UnknownCreatureException | NoCreatureException e) {
-                TextOut.getTextOut().writeln(e.getMessage(), 1);
-                TextOut.getTextOut().writeln(Arrays.toString(e.getStackTrace()), 2);
-            }
+        if (new ForesterService().checkWoods(island.getCells())) {
+            TextOut.getTextOut().writeln("No more plants", 0);
+            throw new NoMorePlantsException();
         }
     }
-
-    private void processCreature(Creature creature, Cell cell, int x, int y) {
-        if (creature.isAlive()) {
-            if (creature instanceof Animal) {
-                processAnimal((Animal) creature, cell, x, y);
-            }
-            if (creature instanceof Plant) {
-                processPlant((Plant) creature, cell);
-            }
-        }
-        new GrimReaperService().rip(creature, cell);
-    }
-
-    private void processPlant(Plant plant, Cell cell) {
-        new ReproductionService().reproduction(plant, cell);
-
-    }
-
-    private void processAnimal(Animal animal, Cell cell, int x, int y) {
-        new FoodService().eat(animal, cell);
-        new ReproductionService().reproduction(animal, cell);
-        new TravelService().goTravel(animal, x, y);
-        new HangerService().digest(animal);
-    }*/
 }

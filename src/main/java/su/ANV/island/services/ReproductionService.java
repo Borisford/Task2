@@ -1,19 +1,18 @@
 package su.ANV.island.services;
 
 import su.ANV.island.actors.Creature;
-import su.ANV.island.data.Zoo;
 import su.ANV.island.exception.TooMatchCreatureException;
 import su.ANV.island.exception.UnknownCreatureException;
 import su.ANV.island.io.TextOut;
 import su.ANV.island.island.Cell;
+import su.ANV.island.params.Params;
 
 import java.util.Arrays;
 
 public class ReproductionService {
-    private final int reproductionChance = 50;
 
     public void reproduction(Creature creature, Cell cell) {
-        if (new RandomService().chance(reproductionChance)) {
+        if (new RandomService().chance(Params.REPRODUCTION_CHANCE)) {
             try {
                 cell.addCreature(creature.getName());
             } catch (UnknownCreatureException | TooMatchCreatureException e) {

@@ -2,7 +2,7 @@ package su.ANV.island.services;
 
 import su.ANV.island.actors.Animal;
 import su.ANV.island.actors.Creature;
-import su.ANV.island.exception.AlreadyDeadExceptoin;
+import su.ANV.island.exception.AlreadyDeadException;
 import su.ANV.island.exception.NoCreatureException;
 import su.ANV.island.exception.UnknownCreatureException;
 import su.ANV.island.io.TextOut;
@@ -36,7 +36,7 @@ public class FoodService {
         Creature food = foodList.get(roll);
         try {
             food.die();
-        } catch (AlreadyDeadExceptoin e) {
+        } catch (AlreadyDeadException e) {
             TextOut.getTextOut().writeln(animal.getName() + " #" + animal.getId() + " choose illigal food.", 3);
             return;
         }

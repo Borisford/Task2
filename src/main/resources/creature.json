@@ -2,21 +2,99 @@
   "animalDataMap": {
     "Wolf": {
       "weight": 50,
-      "maxOnCell": 3,
+      "maxOnCell": 30,
       "speed": 3,
       "maxHanger": 8
     },
+    "Boa Constrictor": {
+      "weight": 15,
+      "maxOnCell": 30,
+      "speed": 1,
+      "maxHanger": 3
+    },
+    "Fox": {
+      "weight": 8,
+      "maxOnCell": 30,
+      "speed": 2,
+      "maxHanger": 2
+    },
+    "Bear": {
+      "weight": 500,
+      "maxOnCell": 5,
+      "speed": 2,
+      "maxHanger": 80
+    },
+    "Eagle": {
+      "weight": 6,
+      "maxOnCell": 20,
+      "speed": 3,
+      "maxHanger": 1
+    },
+    "Horse": {
+      "weight": 400,
+      "maxOnCell": 20,
+      "speed": 4,
+      "maxHanger": 60
+    },
+    "Deer": {
+      "weight": 300,
+      "maxOnCell": 20,
+      "speed": 4,
+      "maxHanger": 50
+    },
     "Rabbit": {
       "weight": 2,
-      "maxOnCell": 1,
+      "maxOnCell": 150,
       "speed": 2,
       "maxHanger": 0.45
+    },
+    "Mouse": {
+      "weight": 0.05,
+      "maxOnCell": 500,
+      "speed": 1,
+      "maxHanger": 0.01
+    },
+    "Goat": {
+      "weight": 60,
+      "maxOnCell": 140,
+      "speed": 3,
+      "maxHanger": 10
+    },
+    "Sheep": {
+      "weight": 70,
+      "maxOnCell": 140,
+      "speed": 3,
+      "maxHanger": 15
+    },
+    "Wild Boar": {
+      "weight": 400,
+      "maxOnCell": 50,
+      "speed": 2,
+      "maxHanger": 50
+    },
+    "Buffalo": {
+      "weight": 700,
+      "maxOnCell": 10,
+      "speed": 3,
+      "maxHanger": 100
+    },
+    "Duck": {
+      "weight": 1,
+      "maxOnCell": 200,
+      "speed": 4,
+      "maxHanger": 0.15
+    },
+    "Caterpillar": {
+      "weight": 0.01,
+      "maxOnCell": 1000,
+      "speed": 0,
+      "maxHanger": 0
     }
   },
   "plantDataMap": {
     "Plant": {
       "weight": 1,
-      "maxOnCell": 2
+      "maxOnCell": 20
     }
   }
 }

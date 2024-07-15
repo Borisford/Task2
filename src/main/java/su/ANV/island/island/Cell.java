@@ -18,10 +18,10 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 @ToString
 public class Cell {
-    private Map<String, List<Creature>> creatures;
+    private final Map<String, List<Creature>> creatures;
 
     @ToString.Exclude
-    private static Zoo zoo; // Zoo.getZoo();
+    private final Zoo zoo; // Zoo.getZoo();
 
     public Cell(Zoo zoo) {
         this.zoo = zoo;
@@ -89,13 +89,6 @@ public class Cell {
             throw new TooMatchCreatureException("Too match " + animalName + " in one cell to add one more;");
         }
         creatures.get(animalName).add(animal);
-    }
-
-    public void removeCreature(String creatureName, int index) throws NoCreatureException, UnknownCreatureException {
-        if (!containCreature(creatureName)) {
-            throw new NoCreatureException("No " + creatureName + " in cell;");
-        }
-        creatures.get(creatureName).remove(index);
     }
 
     public void removeCreature(String creatureName, Creature creature) throws NoCreatureException, UnknownCreatureException {

@@ -27,19 +27,12 @@ public class CellProcessor implements Runnable {
     public void run() {
         Set<String> creaturesSet = cell.getCreaturesSet();
         List<Creature> creatureList;
-        int i = 0, j = 0;
         for (String creatureName : creaturesSet) {
             try {
                 creatureList = cell.getCreatureList(creatureName);
-                j = 0;
                 for (Creature creature : creatureList) {
                     processCreature(creature);
-                    /*TextOut.getTextOut().writeln(creatureName + ": " + i + "/" + creaturesSet.size() +
-                             " | " + j + "/" + creatureList.size() +
-                            "(x:" + x + ";y:" + y + ";)", 42);*/
-                    j++;
                 }
-                i++;
             } catch (UnknownCreatureException | NoCreatureException e) {
                 TextOut.getTextOut().writeln(e.getMessage(), 1);
                 TextOut.getTextOut().writeln(Arrays.toString(e.getStackTrace()), 2);

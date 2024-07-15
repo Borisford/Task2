@@ -1,7 +1,7 @@
 package su.ANV.island.services;
 
 import su.ANV.island.actors.Animal;
-import su.ANV.island.exception.CellOutOfIslandExceptoin;
+import su.ANV.island.exception.CellOutOfIslandException;
 import su.ANV.island.exception.TooMatchCreatureException;
 import su.ANV.island.io.TextOut;
 import su.ANV.island.island.Island;
@@ -17,7 +17,9 @@ public class TravelService {
         int toX, toY;
         int dx, dy, dir;
         boolean isDone = false;
-        while (!isDone){
+        int i = 0;
+        while (!isDone && i < 3){
+            i++;
             toX = fromX;
             toY = fromY;
             dx = new RandomService().roll(animal.getSpeed());
@@ -43,7 +45,7 @@ public class TravelService {
                 toY = Math.min(toY, Params.ISLAND_HEIGHT - 1);
                 island.moveAnimal(animal, fromX, fromY, toX, toY);
                 isDone = true;
-            } catch (CellOutOfIslandExceptoin | TooMatchCreatureException e) {
+            } catch (CellOutOfIslandException | TooMatchCreatureException e) {
                 isDone = false;
                 TextOut.getTextOut().writeln(animal.getName() + " moved from(x:" + fromX + ";y:" + fromY + ") to(x:" + toX + ";y:" + toY + ")", 0);
                 TextOut.getTextOut().writeln("from(x:" + fromX + ";y:" + fromY + ") to(x:" + toX + ";y:" + toY + ")", 3);

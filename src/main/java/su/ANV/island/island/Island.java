@@ -5,7 +5,7 @@ import lombok.ToString;
 import su.ANV.island.actors.Animal;
 import su.ANV.island.data.Zoo;
 import su.ANV.island.data.ZooAdmin;
-import su.ANV.island.exception.CellOutOfIslandExceptoin;
+import su.ANV.island.exception.CellOutOfIslandException;
 import su.ANV.island.exception.NoCreatureException;
 import su.ANV.island.exception.TooMatchCreatureException;
 import su.ANV.island.exception.UnknownCreatureException;
@@ -19,12 +19,11 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @ToString
 public class Island {
     private static Island island = null;
-    private static Zoo zoo;
     @Getter
-    private List<Cell> cells;
+    private final List<Cell> cells;
 
     private Island() {
-        zoo = ZooAdmin.getZoo(Params.ZOO_JSON_PATH);
+        Zoo zoo = ZooAdmin.getZoo(Params.ZOO_JSON_PATH);
         TextOut.getTextOut().writeln(zoo.toString(), 3);
         int size = Params.ISLAND_HEIGHT * Params.ISLAND_WIDTH;
         cells = new CopyOnWriteArrayList<Cell>();
@@ -40,19 +39,19 @@ public class Island {
         return island;
     }
 
-    public Cell getCell(int x, int y) throws CellOutOfIslandExceptoin {
+    public Cell getCell(int x, int y) throws CellOutOfIslandException {
         if (x < 0 || x >= Params.ISLAND_WIDTH || y < 0 || y >= Params.ISLAND_HEIGHT) {
-            throw new CellOutOfIslandExceptoin();
+            throw new CellOutOfIslandException();
         }
         return cells.get(y * Params.ISLAND_WIDTH + x);
     }
 
-    public void moveAnimal(Animal animal, int fromX, int fromY, int toX, int toY) throws CellOutOfIslandExceptoin, TooMatchCreatureException {
+    public void moveAnimal(Animal animal, int fromX, int fromY, int toX, int toY) throws CellOutOfIslandException, TooMatchCreatureException {
         Cell fromCell , toCell;
         toCell = getCell(toX, toY);
         try {
             fromCell = getCell(fromX, fromY);
-        } catch (CellOutOfIslandExceptoin e) {
+        } catch (CellOutOfIslandException e) {
             TextOut.getTextOut().writeln(e.getMessage(), 1);
             TextOut.getTextOut().writeln(Arrays.toString(e.getStackTrace()), 2);
             return;
@@ -62,6 +61,7 @@ public class Island {
         } catch (UnknownCreatureException e) {
             TextOut.getTextOut().writeln(e.getMessage(), 1);
             TextOut.getTextOut().writeln(Arrays.toString(e.getStackTrace()), 2);
+            return;
         }
 
         try {
@@ -85,7 +85,7 @@ public class Island {
             for (int y = 0; y < Params.ISLAND_HEIGHT; y++) {
                 try {
                     s = island.getCell(x,y).miniCell();
-                } catch (CellOutOfIslandExceptoin e) {
+                } catch (CellOutOfIslandException e) {
                     TextOut.getTextOut().writeln(e.getMessage(), 1);
                     TextOut.getTextOut().writeln(Arrays.toString(e.getStackTrace()), 2);
                 }

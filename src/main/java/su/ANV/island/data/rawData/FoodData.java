@@ -25,7 +25,7 @@ public class FoodData {
         if (data.containsKey(eaterName)) {
             return data.get(eaterName);
         }
-        throw  new UnknownCreatureException(STR."\{eaterName}eats nothing;");
+        throw  new UnknownCreatureException(eaterName + " eats nothing;");
     }
 
 }
